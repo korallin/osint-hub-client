@@ -8,6 +8,15 @@ let utilsFunction = {
            result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;
+    },
+
+    art(){
+        console.log(`
+   ____      _      __    __        __ 
+  / __ \\___ (_)__  / /_  / /  __ __/ / 
+ / /_/ (_-</ / _ \\/ __/ / _ \\/ // / _ \\
+ \\____/___/_/_//_/\\__/ /_//_/\\_,_/_.__/                                  
+ `)
     }
 
 }

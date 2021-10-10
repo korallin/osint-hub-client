@@ -13,6 +13,7 @@ let userKey
 socket.on('connect', async function() {
     
     //all the function of the client
+    utilsFunction.art()
     let choiseServer = JSON.parse(await serverManage.selectServerCnil())
     if(choiseServer.choise != "yes"){
         console.log("[-] no other server...")
@@ -23,6 +24,7 @@ socket.on('connect', async function() {
 
     //select if login or register
     async function login(){
+        
         let userChoiseBase = JSON.parse(await userManage.selectLoginOrRegister())
         if(userChoiseBase.choise == "exit"){
             console.log("[-] exiting...")
@@ -42,6 +44,7 @@ socket.on('connect', async function() {
     }
 
     async function baseMenu(){
+        utilsFunction.art()
         let baseChoise = JSON.parse(await serverManage.baseMenuSelect())
         if(baseChoise.choise == "exit"){
             console.log("[-] exiting...")
@@ -121,4 +124,14 @@ socket.on('connect', async function() {
         }
         
     });
+});
+
+
+socket.on('disconnect', function() {
+    console.log('[-] disconnected from server...');
+});
+
+socket.on('error', function(){
+    console.log('[-] error...');
+    process.exit();
 });
