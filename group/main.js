@@ -41,6 +41,28 @@ let groupManage = {
             info: "create",
             groupname: name
         }))
+    },
+
+    async leaveGroup(socket, userKey, thisIsATmpTokenListener){
+        let name = await this.ask('Group name:');
+
+        socket.emit('group', JSON.stringify({
+            token: userKey,
+            tmp: thisIsATmpTokenListener,
+            info: "leave",
+            groupname: name
+        }))
+    },
+
+    async infoGroup(socket, userKey, thisIsATmpTokenListener){
+        let name = await this.ask('Group name:');
+
+        socket.emit('group', JSON.stringify({
+            token: userKey,
+            tmp: thisIsATmpTokenListener,
+            info: "info",
+            groupname: name
+        }))
     }
 
 }

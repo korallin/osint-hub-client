@@ -6,6 +6,7 @@ let groupManage = require('./group/main.js');
 const fs = require('fs');
 const term = require('terminal-kit').terminal;
 const { formatArgs } = require('debug');
+const { group } = require('console');
 
 let thisIsATmpTokenListener = utilsFunction.randomString(25);
 let userKey
@@ -62,9 +63,9 @@ socket.on('connect', async function() {
         }  else if(choise.choise == "create"){
             groupManage.createGroup(socket, userKey, thisIsATmpTokenListener)
         } else if(choise.choise == "leave"){
-
+            groupManage.leaveGroup(socket, userKey, thisIsATmpTokenListener)
         } else if(choise.choise == "info"){
-
+            groupManage.infoGroup(socket, userKey, thisIsATmpTokenListener)
         }
     }
     
@@ -108,6 +109,14 @@ socket.on('connect', async function() {
             console.log(data.message)
         } else if(data.type === "createGroup"){
             console.log("\n[*] "+data.message)
+            groupManagement()
+        } else if(data.type === "leaveGroup"){
+            console.log("\n[*] "+data.message)
+            groupManagement()
+        } else if(data.type === "groupInfo"){
+            console.log("\n[*] "+data.message.name)
+            console.log("- master: "+data.message.master)
+            console.log("- members: "+data.message.members)
             groupManagement()
         }
         
