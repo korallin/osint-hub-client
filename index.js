@@ -2,8 +2,10 @@ let socket = require('socket.io-client')('http://127.0.0.1:8080');
 let utilsFunction = require('./utils/main.js');
 let serverManage = require('./server/main.js');
 let userManage = require('./user/main.js');
+let groupManage = require('./group/main.js');
 const fs = require('fs');
 const term = require('terminal-kit').terminal;
+const { formatArgs } = require('debug');
 
 let thisIsATmpTokenListener = utilsFunction.randomString(25);
 let userKey
@@ -45,6 +47,24 @@ socket.on('connect', async function() {
             process.exit();
         } else if(baseChoise.choise == "search"){
             serverManage.search(socket, userKey, thisIsATmpTokenListener)
+        } else if(baseChoise.choise === "group"){
+            groupManagement()
+        }
+    }
+
+    async function groupManagement(){
+        let choise = await JSON.parse(await groupManage.groupBaseMenu())
+        if(choise.choise == "exit"){
+            console.log("[-] exiting...")
+            process.exit();
+        } else if(choise.choise == "return"){
+            baseMenu()
+        }  else if(choise.choise == "create"){
+            groupManage.createGroup(socket, userKey, thisIsATmpTokenListener)
+        } else if(choise.choise == "leave"){
+
+        } else if(choise.choise == "info"){
+
         }
     }
     
@@ -84,6 +104,11 @@ socket.on('connect', async function() {
                 console.log("[-] report saved in ./reports/"+date+".json")
                 baseMenu()
             }
+        } else if(data.type === "group"){
+            console.log(data.message)
+        } else if(data.type === "createGroup"){
+            console.log("\n[*] "+data.message)
+            groupManagement()
         }
         
     });

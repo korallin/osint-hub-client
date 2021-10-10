@@ -1,21 +1,11 @@
 const term = require('terminal-kit').terminal;
 
-let serverManage = {
+let groupManage = {
 
-    async selectServerCnil () {
+    async groupBaseMenu(){
         return new Promise(function (resolve, reject) {
-            term.cyan('Connect to osint-hub.cnil.me:\n');
-            let items = ["yes", "no"];
-            term.gridMenu(items, function (error, response) {
-                resolve(JSON.stringify({choise: response.selectedText.toLowerCase()}))
-            });
-        })
-    },
-
-    async baseMenuSelect(){
-        return new Promise(function (resolve, reject) {
-            term.cyan('Select base menu:\n');
-            let items = ["Search", "Group", "Exit"];
+            term.cyan('Manage Group:\n');
+            let items = ["Create", "Leave", "Info", "Return", "Exit"];
             term.gridMenu(items, function (error, response) {
                 resolve(JSON.stringify({choise: response.selectedText.toLowerCase()}))
             });
@@ -41,17 +31,18 @@ let serverManage = {
         })
     },
     
-    async search(socket, userKey, thisIsATmpTokenListener){
-        let name = await this.ask('Enter name:');
-        let surname = await this.ask('Enter lastname:');
 
-        socket.emit('search', JSON.stringify({
+    async createGroup(socket, userKey, thisIsATmpTokenListener){
+        let name = await this.ask('Group name:');
+
+        socket.emit('group', JSON.stringify({
             token: userKey,
             tmp: thisIsATmpTokenListener,
-            info: surname+" | "+name,
+            info: "create",
+            groupname: name
         }))
     }
 
 }
 
-module.exports = serverManage
+module.exports = groupManage;
