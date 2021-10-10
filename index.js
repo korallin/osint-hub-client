@@ -1,4 +1,4 @@
-let socket = require('socket.io-client')('http://127.0.0.1:8080');
+let socket = require('socket.io-client')('http://osint-hub.cnil.me:5340');
 let utilsFunction = require('./utils/main.js');
 let serverManage = require('./server/main.js');
 let userManage = require('./user/main.js');
