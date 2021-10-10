@@ -21,6 +21,15 @@ let userManage = {
         }))
     },
 
+    async registerUser(socket, creditential, thisIsATmpTokenListener){
+        socket.emit('register', JSON.stringify({
+            tmp: thisIsATmpTokenListener,
+            username: creditential.username,
+            password: creditential.password
+        }))
+    },
+
+
 
     //utils function
     async askCreditantial(){

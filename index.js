@@ -34,7 +34,7 @@ socket.on('connect', async function() {
                 await userManage.loginUser(socket, JSON.parse(await userManage.askCreditantial()), userKey, thisIsATmpTokenListener);
             }
         } else if(userChoiseBase.choise === "register"){
-    
+            userManage.registerUser(socket, JSON.parse(await userManage.askCreditantial()), thisIsATmpTokenListener);
         }
     }
 
@@ -60,6 +60,13 @@ socket.on('connect', async function() {
                 console.log(data.message)
                 login()
             }
+        } else if(data.type === "register"){
+            console.clear()
+            console.log(data.message)
+            if(data.success){
+                fs.writeFileSync('./private/key.txt', data.message.split(" | ")[1])
+            }
+            login()
         } else if(data.type ==="search"){
             if(!data.success){
                 console.clear()
@@ -81,4 +88,3 @@ socket.on('connect', async function() {
         
     });
 });
-
