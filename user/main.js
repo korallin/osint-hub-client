@@ -59,7 +59,7 @@ let userManage = {
 
     checkTheKey(key){
         if(key != undefined){
-            if(key.length == 50){
+            if(key.length >= 50 && key.length < 64){
                 return true;
             } else {
                 return false;
